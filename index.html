@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#1764b7">
+<title>Little Learners | Play, Learn, Grow!</title>
+<style>
+:root{--blue:#1764b7;--navy:#123d88;--ink:#17335d;--yellow:#ffd84d;--paper:#f7fbff}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Trebuchet MS",Arial,sans-serif;background:var(--paper);color:var(--ink)}
+header{background:linear-gradient(110deg,#1557a5,#247dd1);color:white;padding:14px clamp(16px,4vw,56px);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{font-size:clamp(1.4rem,3vw,2rem);font-weight:900;letter-spacing:.3px}.brand span{color:var(--yellow)}
+nav{display:flex;gap:8px;flex-wrap:wrap}nav a{color:white;text-decoration:none;padding:10px 13px;border-radius:24px;font-weight:700}nav a:hover,nav a:focus{background:#ffffff28}
+.hero{background:linear-gradient(130deg,#bdeeff,#e8faff 60%,#c5f5d1);text-align:center;padding:42px 20px 36px;position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"✦";position:absolute;color:#ffc928;font-size:70px;opacity:.7}.hero:before{left:7%;top:20px}.hero:after{right:8%;bottom:8px}
+.hero h1{font-size:clamp(2rem,5vw,3.4rem);color:#103f99;margin:0 0 8px}.hero h2{font-size:clamp(1.25rem,3vw,2rem);margin:0 0 12px;color:#1764b7}.hero p{max-width:650px;margin:0 auto;font-size:1.08rem;line-height:1.6}
+.wrap{max-width:1200px;margin:auto;padding:28px 18px 50px}
+.section-title{text-align:center;font-size:1.8rem;margin:0 0 8px;color:#163e89}.intro{text-align:center;margin:0 auto 24px;max-width:700px;line-height:1.5}
+.games{display:grid;grid-template-columns:repeat(auto-fit,minmax(225px,1fr));gap:18px}
+.game-card{border:0;border-radius:20px;padding:20px;text-align:center;box-shadow:0 7px 18px #17335d12;transition:transform .18s,box-shadow .18s;min-height:240px;display:flex;flex-direction:column;align-items:center}
+.game-card:hover{transform:translateY(-4px);box-shadow:0 12px 24px #17335d20}
+.game-card .emoji{font-size:3.2rem;line-height:1.2}.game-card h3{font-size:1.3rem;margin:10px 0 6px}.game-card p{line-height:1.45;margin:0 0 16px;flex:1}
+.purple{background:#eee4ff}.green{background:#dcf9df}.blue{background:#d8f2ff}.orange{background:#ffebd4}.pink{background:#ffe1ed}.teal{background:#d5f8f7}.yellow{background:#fff3c9}
+button{border:0;border-radius:999px;padding:11px 18px;background:#1764b7;color:white;font-weight:800;font-size:1rem;cursor:pointer;transition:filter .15s,transform .15s}button:hover{filter:brightness(1.08);transform:translateY(-1px)}button:focus-visible,a:focus-visible{outline:3px solid #ffbd23;outline-offset:3px}button.secondary{background:#e7efff;color:#17478c}button.correct{background:#219653}button.wrong{background:#d94a56}
+.play-area{margin:30px auto 0;max-width:850px;background:white;border:2px solid #d9eaff;border-radius:22px;padding:clamp(18px,4vw,30px);box-shadow:0 10px 25px #17335d10;scroll-margin-top:16px}
+.play-area[hidden]{display:none}.play-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.play-head h2{margin:0;color:#16458f}.close-btn{background:#edf3ff;color:#234d86}
+.game-message{min-height:28px;font-weight:800;margin:14px 0;color:#1764b7}.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:18px 0}.choices button{border-radius:14px;min-height:52px}.question{font-size:1.3rem;font-weight:800;line-height:1.45;margin:20px 0 12px}
+.match-grid,.memory-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:18px 0}.match-grid button{background:#e8f5ff;color:#17335d;border:2px solid #c3e5ff;border-radius:14px}.match-grid button.selected{background:#ffe89a;border-color:#eab52a}.match-grid button.matched{background:#d8f7df;border-color:#62bf78}
+.board{display:grid;grid-template-columns:repeat(3,minmax(65px,100px));gap:8px;justify-content:center;margin:20px auto}.cell{aspect-ratio:1;border-radius:16px;background:#eaf4ff;color:#1557a5;font-size:2.3rem}.memory-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.memory-card{min-height:75px;font-size:1.8rem;background:#dff4ff;color:#16458f;border-radius:14px;padding:8px}.memory-card.revealed,.memory-card.matched{background:#fff0b5}
+.math-problem{font-size:2.5rem;font-weight:900;text-align:center;margin:20px 0}.word-big{font-size:2rem;font-weight:900;letter-spacing:5px;text-align:center;margin:22px 0}
+input[type=text]{font:inherit;padding:12px;border:2px solid #bcd8f5;border-radius:12px;max-width:100%;width:230px;text-transform:lowercase}
+.word-search{display:grid;grid-template-columns:repeat(6,minmax(30px,44px));justify-content:center;gap:5px;margin:20px 0}.letter{padding:0;border-radius:8px;aspect-ratio:1;background:#edf6ff;color:#153d79}.letter.found{background:#b8f0c3;color:#15532b}
+footer{text-align:center;padding:24px 18px;background:#155bad;color:white;font-weight:700}footer a{color:#fff}
+.small{font-size:.9rem;color:#536b8b}.pill{display:inline-block;background:#fff3bd;border-radius:999px;padding:6px 12px;font-weight:800;color:#785300}
+@media(max-width:520px){header{justify-content:center;text-align:center}nav{justify-content:center}.hero{padding:35px 18px}.memory-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.memory-card{min-height:58px;font-size:1.4rem}.match-grid{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">⭐ Little <span>Learners</span></div>
+  <nav aria-label="Main navigation"><a href="#home">🏠 Home</a><a href="#games">🎮 Games</a><a href="#learn">📚 Learn</a></nav>
+</header>
+<main id="home">
+<section class="hero">
+  <h1>Welcome to Little Learners!</h1>
+  <h2>Play. Learn. Grow!</h2>
+  <p>Fun games to stretch your brain, practice new skills, and celebrate every little win. Made for curious kids ages <strong>7–9</strong>!</p>
+</section>
+<section class="wrap" id="games">
+  <h2 class="section-title">Pick a game!</h2>
+  <p class="intro">Choose an activity, try your best, and remember: learning is an adventure. 🌈</p>
+  <div class="games">
+    <article class="game-card purple"><div class="emoji" aria-hidden="true">🧠</div><h3>Quiz Time</h3><p>Answer fun questions about animals, science, and the world.</p><button onclick="startQuiz()">Play now →</button></article>
+    <article class="game-card green"><div class="emoji" aria-hidden="true">🍎</div><h3>Word Matching</h3><p>Match each word with the right picture.</p><button onclick="startMatching()">Play now →</button></article>
+    <article class="game-card blue"><div class="emoji" aria-hidden="true">🧩</div><h3>Brain Teasers</h3><p>Practice patterns and solve little puzzles.</p><button onclick="startPuzzle()">Play now →</button></article>
+    <article class="game-card orange"><div class="emoji" aria-hidden="true">⭕</div><h3>Tic-Tac-Toe</h3><p>Take turns and try to get three in a row.</p><button onclick="startTic()">Play now →</button></article>
+    <article class="game-card pink"><div class="emoji" aria-hidden="true">🃏</div><h3>Memory Match</h3><p>Flip cards and find the matching pairs.</p><button onclick="startMemory()">Play now →</button></article>
+    <article class="game-card teal"><div class="emoji" aria-hidden="true">➕</div><h3>Math Challenge</h3><p>Warm up your brain with addition and subtraction.</p><button onclick="startMath()">Play now →</button></article>
+    <article class="game-card yellow"><div class="emoji" aria-hidden="true">🐝</div><h3>Spelling Bee</h3><p>Unscramble letters to spell a word.</p><button onclick="startSpelling()">Play now →</button></article>
+    <article class="game-card purple"><div class="emoji" aria-hidden="true">🔎</div><h3>Word Search</h3><p>Find hidden words in a letter grid.</p><button onclick="startWordSearch()">Play now →</button></article>
+  </div>
+  <section class="play-area" id="playArea" hidden aria-live="polite">
+    <div class="play-head"><h2 id="gameTitle">Let's play!</h2><button class="close-btn" onclick="closeGame()">✕ Close</button></div>
+    <div id="gameContent"></div>
+    <p class="game-message" id="gameMessage" role="status"></p>
+  </section>
+</section>
+<section class="wrap" id="learn">
+  <h2 class="section-title">Every day is a chance to grow! 🌱</h2>
+  <p class="intro">Try a new game, read a book, ask a big question, or teach someone something you learned. You’re doing great!</p>
+</section>
+</main>
+<footer>⭐ Small steps today · Big dreams tomorrow! ⭐<div class="small" style="color:#e7f2ff;margin-top:8px">A friendly practice space for curious minds.</div></footer>
+<script>
+const area=document.getElementById('playArea'), title=document.getElementById('gameTitle'), content=document.getElementById('gameContent'), message=document.getElementById('gameMessage');
+function openGame(name){area.hidden=false;title.textContent=name;content.innerHTML='';message.textContent='';area.scrollIntoView({behavior:'smooth',block:'start'})}
+function say(s){message.textContent=s}
+function shuffle(a){return [...a].sort(()=>Math.random()-.5)}
+function startQuiz(){openGame('🧠 Quiz Time');const qs=[
+{q:'Which planet do we live on?',a:['Earth','Mars','Jupiter','Venus'],c:0},
+{q:'How many legs does a spider have?',a:['Six','Eight','Ten','Four'],c:1},
+{q:'What do plants need from the Sun?',a:['Sunlight','Shoes','Music','Snow'],c:0},
+{q:'Which is the largest ocean animal?',a:['Dolphin','Blue whale','Sea turtle','Octopus'],c:1},
+{q:'What is 9 + 6?',a:['14','15','16','13'],c:1}];let i=0,score=0;
+function show(){if(i>=qs.length){content.innerHTML=`<h3>Quiz complete! 🎉</h3><p>You got <strong>${score} out of ${qs.length}</strong> correct.</p><button onclick="startQuiz()">Play again</button>`;say(score===qs.length?'Amazing! Perfect score!':'Great effort! Every try helps you learn.');return}
+const q=qs[i];content.innerHTML=`<div class="pill">Question ${i+1} of ${qs.length} · ⭐ ${score} points</div><p class="question">${q.q}</p><div class="choices">${q.a.map((x,n)=>`<button data-n="${n}" class="secondary">${x}</button>`).join('')}</div>`;
+content.querySelectorAll('button').forEach(b=>b.onclick=()=>{const ok=+b.dataset.n===q.c;if(ok)score++;content.querySelectorAll('button').forEach(x=>{x.disabled=true;if(+x.dataset.n===q.c)x.className='correct';else if(x===b)x.className='wrong'});say(ok?'That’s right! 🌟':'Nice try! The answer is '+q.a[q.c]+'.');const next=document.createElement('button');next.textContent=i===qs.length-1?'See score':'Next question →';next.onclick=()=>{i++;show()};content.appendChild(next)})}show()}
+function startMatching(){openGame('🍎 Word Matching');const pairs=[['🍎','Apple'],['🐶','Dog'],['🌞','Sun'],['🐟','Fish']];let items=shuffle(pairs.flatMap((p,i)=>[{id:i,label:p[0]},{id:i,label:p[1]}])),first=null,done=0;
+content.innerHTML='<p>Tap a picture, then tap the word that matches it.</p><div class="match-grid">'+items.map((x,i)=>`<button data-i="${i}" data-id="${x.id}">${x.label}</button>`).join('')+'</div>';
+content.querySelectorAll('button').forEach(b=>b.onclick=()=>{if(b.classList.contains('matched')||b===first)return;b.classList.add('selected');if(!first){first=b;return}if(first.dataset.id===b.dataset.id&&first.textContent!==b.textContent){first.classList.remove('selected');b.classList.remove('selected');first.classList.add('matched');b.classList.add('matched');done++;say('Great match! ⭐');first=null;if(done===pairs.length)say('You matched them all! Fantastic! 🎉')}else{const old=first;first=null;say('Not quite—try another pair!');setTimeout(()=>{old.classList.remove('selected');b.classList.remove('selected')},650)}})}
+function startPuzzle(){openGame('🧩 Brain Teasers');const puzzles=[{q:'What comes next?  2, 4, 6, 8, __',a:['9','10','12'],c:'10',hint:'The numbers go up by the same amount each time.'},{q:'I have hands but cannot clap. What am I?',a:['A clock','A bird','A tree'],c:'A clock',hint:'You might look at me to know the time.'},{q:'Which one does not belong?',a:['Triangle','Square','Banana'],c:'Banana',hint:'Two are shapes.'}];let i=0;
+function show(){if(i===puzzles.length){content.innerHTML='<h3>Brain teaser champion! 🏆</h3><button onclick="startPuzzle()">Play again</button>';return}let p=puzzles[i];content.innerHTML=`<p class="question">${p.q}</p><div class="choices">${p.a.map(a=>`<button class="secondary">${a}</button>`).join('')}</div><button class="secondary" id="hintBtn">💡 Hint</button>`;document.getElementById('hintBtn').onclick=()=>say(p.hint);content.querySelectorAll('.choices button').forEach(b=>b.onclick=()=>{if(b.textContent===p.c){say('You got it! 🌟');i++;setTimeout(show,650)}else say('Good try! Think it through and try again.')})}show()}
+function startTic(){openGame('⭕ Tic-Tac-Toe');let board=Array(9).fill(''),turn='X',over=false;content.innerHTML='<p>Two players: X goes first. Get three in a row!</p><div class="board">'+board.map((_,i)=>`<button class="cell" data-i="${i}" aria-label="Square ${i+1}"></button>`).join('')+'</div><button class="secondary" id="resetTic">Restart game</button>';
+const cells=[...content.querySelectorAll('.cell')];function win(){return [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]].some(line=>line.every(i=>board[i]&&board[i]===board[line[0]]))}
+cells.forEach(c=>c.onclick=()=>{let i=+c.dataset.i;if(over||board[i])return;board[i]=turn;c.textContent=turn;c.style.color=turn==='X'?'#1764b7':'#ed6a36';if(win()){say(turn+' wins! High five! 🙌');over=true}else if(board.every(Boolean)){say('It’s a draw! Great game. 🤝');over=true}else{turn=turn==='X'?'O':'X';say('Player '+turn+', your turn!')}});document.getElementById('resetTic').onclick=startTic;say('Player X, your turn!')}
+function startMemory(){openGame('🃏 Memory Match');const faces=shuffle(['🐸','🚀','🌈','🍓','🐸','🚀','🌈','🍓']);let opened=[],matched=0,lock=false,moves=0;content.innerHTML='<p>Find all four matching pairs.</p><div class="memory-grid">'+faces.map((f,i)=>`<button class="memory-card" data-i="${i}" aria-label="Hidden card">❔</button>`).join('')+'</div><p>Moves: <strong id="moves">0</strong></p>';let cards=[...content.querySelectorAll('.memory-card')];cards.forEach(c=>c.onclick=()=>{if(lock||c.classList.contains('revealed')||c.classList.contains('matched'))return;let i=+c.dataset.i;c.textContent=faces[i];c.classList.add('revealed');opened.push(c);if(opened.length===2){moves++;document.getElementById('moves').textContent=moves;if(opened[0].textContent===opened[1].textContent){opened.forEach(x=>{x.classList.add('matched');x.classList.remove('revealed')});matched+=2;opened=[];if(matched===faces.length)say(`You found every pair in ${moves} moves! 🎉`)}else{lock=true;setTimeout(()=>{opened.forEach(x=>{x.textContent='❔';x.classList.remove('revealed')});opened=[];lock=false},750)}}})}
+function startMath(){openGame('➕ Math Challenge');let round=0,score=0,answer=0;function next(){if(round===8){content.innerHTML=`<h3>Math star! 🌟</h3><p>You solved ${score} out of 8 problems.</p><button onclick="startMath()">Play again</button>`;return}let a=Math.floor(Math.random()*13),b=Math.floor(Math.random()*13),sub=Math.random()>.5;if(sub&&b>a)[a,b]=[b,a];answer=sub?a-b:a+b;content.innerHTML=`<div class="pill">Problem ${round+1} of 8 · ⭐ ${score} points</div><div class="math-problem">${a} ${sub?'−':'+'} ${b} = ?</div><form id="mathForm"><input id="mathAnswer" type="text" inputmode="numeric" aria-label="Your answer" placeholder="Your answer" required><button>Check</button></form>`;document.getElementById('mathForm').onsubmit=e=>{e.preventDefault();let val=Number(document.getElementById('mathAnswer').value);if(val===answer){score++;say('Correct! Your brain is growing! 🧠')}else say('Good try! The answer is '+answer+'.');round++;setTimeout(next,850)}}next()}
+function startSpelling(){openGame('🐝 Spelling Bee');const words=['planet','garden','pencil','rabbit','winter','school','flower'];let idx=Math.floor(Math.random()*words.length),word=words[idx];content.innerHTML=`<p>Put the letters in the right order to make a word.</p><div class="word-big">${shuffle(word.split('')).join(' ')}</div><form id="spellForm"><input id="spellAnswer" type="text" aria-label="Spell the word" placeholder="Type the word" required><button>Check</button></form><button class="secondary" id="spellHint" style="margin-top:12px">💡 Show a hint</button>`;document.getElementById('spellHint').onclick=()=>say(`Hint: ${word.length} letters. It starts with “${word[0]}”.`);document.getElementById('spellForm').onsubmit=e=>{e.preventDefault();if(document.getElementById('spellAnswer').value.trim().toLowerCase()===word){say('Bee-utiful spelling! 🐝');}else say('Almost! The word was “'+word+'”. Try another round!');const btn=document.createElement('button');btn.textContent='New word →';btn.style.marginLeft='8px';btn.onclick=startSpelling;content.appendChild(btn)}}
+function startWordSearch(){openGame('🔎 Word Search');const rows=['CATDOG','BIRDXX','FISHXX','SUNXXX','PLANTX','XXXXXX'];const words=['CAT','DOG','BIRD','FISH','SUN','PLANT'];let found=new Set(),selected=[];content.innerHTML=`<p>Tap the letters that make each word. Words go left to right.</p><p><strong>Find:</strong> ${words.map(w=>`<span id="w-${w}" style="margin-right:8px">${w}</span>`).join('')}</p><div class="word-search">${rows.join('').split('').map((l,i)=>`<button class="letter" data-i="${i}">${l==='X'?'M':l}</button>`).join('')}</div><button class="secondary" id="resetWords">Start over</button>`;
+const buttons=[...content.querySelectorAll('.letter')];buttons.forEach(b=>b.onclick=()=>{if(b.classList.contains('found'))return;b.classList.toggle('selected');selected.push(+b.dataset.i);const letters=selected.map(i=>buttons[i].textContent).join('');const match=words.find(w=>w===letters);if(match){selected.forEach(i=>buttons[i].classList.add('found'));document.getElementById('w-'+match).style.textDecoration='line-through';found.add(match);selected=[];buttons.forEach(x=>x.classList.remove('selected'));say(`Found ${match}! 🌟`);if(found.size===words.length)say('You found every word! Word wizard! 🧙')}else if(selected.length>=6){selected=[];buttons.forEach(x=>x.classList.remove('selected'))}});document.getElementById('resetWords').onclick=startWordSearch}
+function closeGame(){area.hidden=true;content.innerHTML='';message.textContent='';document.getElementById('games').scrollIntoView({behavior:'smooth'})}
+</script>
+</body>
+</html>
